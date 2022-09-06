@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-data-app
+  labels:
+    app: weather-data-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-data-app
+  template:
+    metadata:
+      labels:
+        app: weather-data-app
+    spec:
+      containers:
+      - name: weather-data-app
+        image: weatherapp:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: weather-data-config-volume
+            readOnly: true
+            mountPath: /opt/config
+      volumes:
+        - name: weather-data-config-volume
+          configMap:
+            name: weather-data-configmap
+            items:
+            - key: application.yaml
+              path: application.yaml

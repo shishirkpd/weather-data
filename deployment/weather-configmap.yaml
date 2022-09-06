@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weather-data-configmap
+data:
+  application.yaml: |-
+    spring:
+      port: 8080
+      name: data-fetcher
+
+      data:
+        url: "https://api.data.gov.sg/v1/environment/rainfall"
+        location: "Marina Gardens Drive"
